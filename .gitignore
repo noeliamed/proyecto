@@ -1,0 +1,21 @@
+# OpenTofu / Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+!*.tfvars.example
+
+# Inventario generado por OpenTofu (ajusta el nombre cuando lo definas)
+ansible/inventario*
+ansible/hosts
+
+# Imágenes de disco y ficheros grandes
+*.qcow2
+*.img
+*.iso
+*.sql
+*.dump
+
+# Ansible
+*.retry
