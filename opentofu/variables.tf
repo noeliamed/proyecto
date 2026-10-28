@@ -20,7 +20,7 @@ variable "memory_bd" {
 
 variable "ssh_public_key_file" {
   type    = string
-  default = "~/.ssh/id_ed25519.pub"
+  default = "~/.ssh/id_rsa.pub"
 }
 
 variable "usuario" {
