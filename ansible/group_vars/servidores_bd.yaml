@@ -1,0 +1,4 @@
+db_name: guestbook
+db_user: guestbook
+db_password: usuario
+db_tabla: messages

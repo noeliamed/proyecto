@@ -1,0 +1,9 @@
+ip_datos_web: "{{ hostvars['web'].ip_datos }}"
+ip_datos_bd: "{{ hostvars['bd'].ip_datos }}"
+
+db_name: guestbook
+db_user: guestbook
+db_password: usuario
+db_tabla: mensajes
+
+paquetes_comunes: [vim, curl, htop, git]

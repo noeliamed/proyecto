@@ -1,0 +1,11 @@
+- hosts: all
+  become: true
+  roles: [commons]
+
+- hosts: servidores_bd
+  become: true
+  roles: [bd]
+
+- hosts: servidores_web
+  become: true
+  roles: [web]
