@@ -1,0 +1,8 @@
+#cloud-config
+hostname: ${hostname}
+users: 
+  - name: ${usuario}
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorizad_key:
+      - ${ssh_key}
