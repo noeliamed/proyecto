@@ -1,5 +1,5 @@
 locals {
-  ssh_key = trimspace(file(pathexpand(var.ssh_public_key_file)))
+  ssh_key = trimspace(pathexpand(var.ssh_public_key_file))
   maquinas = {
     web = { imagen = var.base_image_web, memoria = var.memory_web, ip_datos = "10.10.10.11" }
     bd  = { imagen = var.base_image_bd,  memoria = var.memory_bd,  ip_datos = "10.10.10.12" }
@@ -9,7 +9,8 @@ locals {
 resource "libvirt_network" "nat" {
   name      = "proy-nat"
   mode      = "nat"
-  addresses = ["192.168.100.0/24"]
+  addresses = ["192.168.150.0/24"]
+  autostart = true
   dhcp { enabled = true }
 }
 
@@ -37,6 +38,10 @@ resource "libvirt_cloudinit_disk" "init" {
   })
   network_config = templatefile("${path.module}/plantillas/network-config.yaml.tftpl", {
     ip_datos = each.value.ip_datos
+  })
+  meta_data = yamlencode({
+    instance-id    = "${each.key}-${substr(md5(local.ssh_key), 0, 6)}"
+    local-hostname = each.key
   })
 }
 

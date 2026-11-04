@@ -1,5 +1,12 @@
 - hosts: all
   become: true
+  gather_facts: false
+  pre_tasks:
+    - name: Esperar a que cloud-init termine y SSH acepte la clave
+      ansible.builtin.wait_for_connection:
+        timeout: 300
+    - name: Recoger facts
+      ansible.builtin.setup:
   roles: [commons]
 
 - hosts: servidores_bd
