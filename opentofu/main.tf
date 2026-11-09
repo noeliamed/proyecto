@@ -27,6 +27,13 @@ resource "libvirt_volume" "disco" {
   size             = 10737418240
 }
 
+resource "libvirt_volume" "datos_bd" {
+  name   = "bd-datos.qcow2"
+  pool   = "default"
+  format = "qcow2"
+  size   = var.tam_disco_datos_gb * 1024 * 1024 * 1024
+}
+
 resource "libvirt_cloudinit_disk" "init" {
   for_each = local.maquinas
   name     = "${each.key}-init.iso"
@@ -60,8 +67,11 @@ resource "libvirt_domain" "vm" {
     network_id = libvirt_network.datos.id
   }
 
-  disk {
-    volume_id = libvirt_volume.disco[each.key].id
+  dynamic "disk" {
+    for_each = each.key == "bd" ? [libvirt_volume.datos_bd.id] : []
+    content {
+      volume_id = disk.value
+    }
   }
 
   console {
@@ -70,3 +80,4 @@ resource "libvirt_domain" "vm" {
     target_type = "serial"
   }
 }
+

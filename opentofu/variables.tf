@@ -27,3 +27,9 @@ variable "usuario" {
   type    = string
   default = "ansible"
 }
+
+
+variable "tam_disco_datos_gb" {
+  type    = number
+  default = 2
+}
