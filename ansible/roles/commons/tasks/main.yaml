@@ -13,3 +13,63 @@
   ansible.builtin.apt:
     name: [apache2, php, libapache2-mod-php, php-mysql, php-mbstring, git, mariadb-client]
     state: present
+
+- name: Instalar utilidades de disco
+  ansible.builtin.apt:
+    name: [parted, xfsprogs]
+    state: present
+
+- name: Crear el grupo mysql antes de instalar MariaDB
+  ansible.builtin.group:
+    name: mysql
+    system: true
+
+- name: Crear el usuario mysql antes de instalar MariaDB
+  ansible.builtin.user:
+    name: mysql
+    group: mysql
+    system: true
+    shell: /usr/sbin/nologin
+    home: /nonexistent
+    create_home: false
+
+- name: Crear la partición
+  community.general.parted:
+    device: "{{ disco_datos_dispositivo }}"
+    number: 1
+    label: gpt
+    part_type: primary
+    part_start: 1MiB
+    part_end: 100%
+    state: present
+
+- name: Esperar a que aparezca la partición
+  ansible.builtin.wait_for:
+    path: "{{ disco_datos_particion }}"
+    timeout: 30
+
+- name: Formatear
+  community.general.filesystem:
+    dev: "{{ disco_datos_particion }}"
+    fstype: "{{ disco_datos_fstype }}"
+    opts: "-L {{ disco_datos_etiqueta }}"
+
+- name: Crear el punto de montaje
+  ansible.builtin.file:
+    path: "{{ disco_datos_montaje }}"
+    state: directory
+
+- name: Montar de forma persistente
+  ansible.posix.mount:
+    path: "{{ disco_datos_montaje }}"
+    src: "LABEL={{ disco_datos_etiqueta }}"
+    fstype: "{{ disco_datos_fstype }}"
+    opts: defaults
+    state: mounted
+
+- name: Propietario del punto de montaje
+  ansible.builtin.file:
+    path: "{{ disco_datos_montaje }}"
+    owner: mysql
+    group: mysql
+    mode: "0755"

@@ -2,3 +2,10 @@ db_name: guestbook
 db_user: guestbook
 db_password: usuario
 db_tabla: messages
+
+
+disco_datos_dispositivo: /dev/vdb
+disco_datos_particion: /dev/vdb1
+disco_datos_etiqueta: datosbd
+disco_datos_montaje: /var/lib/mysql
+disco_datos_fstype: xfs
