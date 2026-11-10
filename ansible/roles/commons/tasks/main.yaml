@@ -73,3 +73,54 @@
     owner: mysql
     group: mysql
     mode: "0755"
+
+- name: Grupo SFTP
+  ansible.builtin.group:
+    name: "{{ sftp_grupo }}"
+
+- name: Directorio raíz de las jaulas
+  ansible.builtin.file:
+    path: "{{ sftp_raiz }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Usuarios SFTP
+  ansible.builtin.user:
+    name: "{{ item.nombre }}"
+    group: "{{ sftp_grupo }}"
+    shell: /usr/sbin/nologin
+  loop: "{{ sftp_usuarios }}"
+
+- name: Clave pública de cada usuario
+  ansible.posix.authorized_key:
+    user: "{{ item.nombre }}"
+    key: "{{ item.clave }}"
+  loop: "{{ sftp_usuarios }}"
+
+- name: Jaula de cada usuario (de root, sin escritura)
+  ansible.builtin.file:
+    path: "{{ sftp_raiz }}/{{ item.nombre }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop: "{{ sftp_usuarios }}"
+
+- name: Directorio de subida
+  ansible.builtin.file:
+    path: "{{ sftp_raiz }}/{{ item.nombre }}/subidas"
+    state: directory
+    owner: "{{ item.nombre }}"
+    group: "{{ sftp_grupo }}"
+    mode: "0750"
+  loop: "{{ sftp_usuarios }}"
+
+- name: Configuración de sshd para el grupo SFTP
+  ansible.builtin.template:
+    src: sftp.conf.j2
+    dest: /etc/ssh/sshd_config.d/50-sftp.conf
+    mode: "0644"
+    validate: /usr/sbin/sshd -t -f %s
+  notify: Recargar ssh

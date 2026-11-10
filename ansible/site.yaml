@@ -15,5 +15,5 @@
 
 - hosts: servidores_web
   become: true
-  roles: [web]
+  roles: [web, sftp]
 

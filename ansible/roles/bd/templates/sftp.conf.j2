@@ -1,0 +1,6 @@
+Match Group {{ sftp_grupo }}
+    ChrootDirectory {{ sftp_raiz }}/%u
+    ForceCommand internal-sftp
+    AllowTcpForwarding no
+    X11Forwarding no
+    PasswordAuthentication no

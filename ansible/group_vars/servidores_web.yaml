@@ -1,3 +1,9 @@
 web_servername: www.noelia.org
 web_docroot: /var/www/guestbook
 web_repo: https://github.com/josedom24/guestbook_php.git
+
+sftp_grupo: sftpusers
+sftp_raiz: /srv/sftp
+sftp_usuarios:
+  - nombre: cliente1
+    clave: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAQVMl3zphzt9RlvupFuR8jOQ+gN8jJ2IjOzXJdzdyCG cliente1@debian
