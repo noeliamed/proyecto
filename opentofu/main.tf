@@ -68,7 +68,10 @@ resource "libvirt_domain" "vm" {
   }
 
   dynamic "disk" {
-    for_each = each.key == "bd" ? [libvirt_volume.datos_bd.id] : []
+    for_each = concat(
+      [libvirt_volume.disco[each.key].id],
+      each.key == "bd" ? [libvirt_volume.datos_bd.id] : []
+    )
     content {
       volume_id = disk.value
     }
