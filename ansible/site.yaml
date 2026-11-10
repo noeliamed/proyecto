@@ -11,9 +11,9 @@
 
 - hosts: servidores_bd
   become: true
-  roles: [bd]
+  roles: [disco_datos, bd]
 
 - hosts: servidores_web
   become: true
-  roles: [web, sftp]
+  roles: [web]
 
