@@ -13,6 +13,10 @@
   become: true
   roles: [disco_datos, bd]
 
+- hosts: servidores_nas
+  become: true
+  roles: [nfs_servidor]
+
 - hosts: servidores_web
   become: true
   roles: [web, sftp]
