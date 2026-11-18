@@ -1,9 +1,9 @@
 locals {
   ssh_key = trimspace(pathexpand(var.ssh_public_key_file))
   maquinas = {
-    web = { imagen = var.base_image_web, memoria = var.memory_web, ip_datos = "10.10.10.11" }
-    bd  = { imagen = var.base_image_bd,  memoria = var.memory_bd,  ip_datos = "10.10.10.12" }
-    nas = { imagen = var.base_image_nas, memoria = var.memory_nas, ip_datos = "10.10.10.13" }
+    web = { imagen = var.base_image_web, memoria = var.memory_web, ip_datos = "10.10.10.11", grupo = "servidores_web" }
+    bd  = { imagen = var.base_image_bd,  memoria = var.memory_bd,  ip_datos = "10.10.10.12", grupo = "servidores_bd" }
+    nas = { imagen = var.base_image_nas, memoria = var.memory_nas, ip_datos = "10.10.10.13", grupo = "servidores_nas" }
   }
 }
 

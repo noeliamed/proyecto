@@ -1,5 +1,8 @@
-[servidores_web]
-web ansible_host=${web_ip} ansible_user=${usuario} ip_datos=${web_datos}
-
-[servidores_bd]
-bd ansible_host=${bd_ip} ansible_user=${usuario} ip_datos=${bd_datos}
+%{ for grupo in grupos ~}
+[${grupo}]
+%{ for nombre, m in maquinas ~}
+%{ if m.grupo == grupo ~}
+${nombre} ansible_host=${m.ip_nat} ansible_user=${usuario} ip_datos=${m.ip_datos}
+%{ endif ~}
+%{ endfor ~}
+%{ endfor ~}

@@ -1,10 +1,19 @@
+locals {
+  grupos = ["servidores_web", "servidores_bd", "servidores_nas"]
+}
+
 resource "local_file" "inventario" {
-  filename = "${path.module}/../ansible/hosts"
+  filename        = "${path.module}/../ansible/hosts"
+  file_permission = "0644"
   content = templatefile("${path.module}/plantillas/inventario.tftpl", {
-    usuario  = var.usuario
-    web_ip   = try(libvirt_domain.vm["web"].network_interface[0].addresses[0], "")
-    bd_ip    = try(libvirt_domain.vm["bd"].network_interface[0].addresses[0], "")
-    web_datos = local.maquinas["web"].ip_datos
-    bd_datos  = local.maquinas["bd"].ip_datos
+    usuario = var.usuario
+    grupos  = local.grupos
+    maquinas = {
+      for nombre, m in local.maquinas : nombre => {
+        grupo    = m.grupo
+        ip_nat   = try(libvirt_domain.vm[nombre].network_interface[0].addresses[0], "")
+        ip_datos = m.ip_datos
+      }
+    }
   })
 }
