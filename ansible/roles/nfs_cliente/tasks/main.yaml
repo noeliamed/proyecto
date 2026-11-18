@@ -8,9 +8,6 @@
   ansible.builtin.file:
     path: "{{ nfs_punto_montaje }}"
     state: directory
-    owner: root
-    group: root
-    mode: "0755"
 
 - name: Montar exportación NFS de forma persistente
   ansible.posix.mount:

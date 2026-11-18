@@ -7,6 +7,14 @@
         Require all granted
     </Directory>
 
+    Alias /ficheros/ {{ nfs_punto_montaje }}/
+
+    <Directory {{ nfs_punto_montaje }}>
+        Options -Indexes
+        AllowOverride None
+        Require all granted
+    </Directory>
+
     ErrorLog ${APACHE_LOG_DIR}/guestbook_error.log
     CustomLog ${APACHE_LOG_DIR}/guestbook_access.log combined
 </VirtualHost>

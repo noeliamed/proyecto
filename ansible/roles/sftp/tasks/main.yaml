@@ -34,15 +34,6 @@
     mode: "0755"
   loop: "{{ sftp_usuarios }}"
 
-- name: Directorio de subida (escribible por el usuario)
-  ansible.builtin.file:
-    path: "{{ sftp_raiz }}/{{ item.nombre }}/subidas"
-    state: directory
-    owner: "{{ item.nombre }}"
-    group: "{{ sftp_grupo }}"
-    mode: "0750"
-  loop: "{{ sftp_usuarios }}"
-
 - name: Configuración de sshd para el grupo SFTP
   ansible.builtin.template:
     src: sftp.conf.j2
