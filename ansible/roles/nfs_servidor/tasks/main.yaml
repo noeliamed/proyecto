@@ -1,0 +1,25 @@
+- name: Instalar el servidor NFS
+  ansible.builtin.apt:
+    name: nfs-kernel-server
+    state: present
+
+- name: Directorio exportado (propietario por UID/GID numérico)
+  ansible.builtin.file:
+    path: "{{ nfs_exportacion }}"
+    state: directory
+    owner: "{{ sftp_uid }}"
+    group: "{{ sftp_gid }}"
+    mode: "0755"
+
+- name: Exportaciones
+  ansible.builtin.template:
+    src: exports.j2
+    dest: /etc/exports
+    mode: "0644"
+  notify: Recargar exportaciones
+
+- name: Servicio NFS arrancado y habilitado
+  ansible.builtin.service:
+    name: nfs-server
+    state: started
+    enabled: true

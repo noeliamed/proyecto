@@ -1,0 +1,2 @@
+# Generado por Ansible
+{{ nfs_exportacion }}{% for c in nfs_clientes %} {{ c.ip }}({{ c.opciones }}){% endfor %}

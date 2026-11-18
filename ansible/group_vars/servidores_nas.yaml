@@ -1,0 +1,4 @@
+nfs_exportacion: /srv/nfs/ficheros
+nfs_clientes:
+  - ip: "{{ hostvars['web'].ip_datos }}"
+    opciones: rw,sync,no_subtree_check,root_squash

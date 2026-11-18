@@ -7,3 +7,6 @@ db_password: usuario
 db_tabla: mensajes
 
 paquetes_comunes: [vim, curl, htop, git]
+
+sftp_uid: 2001
+sftp_gid: 2001
