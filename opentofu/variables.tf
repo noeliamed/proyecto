@@ -33,3 +33,14 @@ variable "tam_disco_datos_gb" {
   type    = number
   default = 2
 }
+
+
+variable "base_image_nas" {
+  type    = string
+  default = "debian13-base.qcow2"
+}
+
+variable "memory_nas" {
+  type    = number
+  default = 1024
+}
