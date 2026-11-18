@@ -1,6 +1,7 @@
 - name: Grupo SFTP
   ansible.builtin.group:
     name: "{{ sftp_grupo }}"
+    gid: "{{ sftp_gid }}"
 
 - name: Directorio raíz de las jaulas
   ansible.builtin.file:
@@ -13,6 +14,7 @@
 - name: Usuarios SFTP (sin shell)
   ansible.builtin.user:
     name: "{{ item.nombre }}"
+    uid: "{{ sftp_uid }}"
     group: "{{ sftp_grupo }}"
     shell: /usr/sbin/nologin
   loop: "{{ sftp_usuarios }}"
