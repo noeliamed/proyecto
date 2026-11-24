@@ -21,3 +21,6 @@
   become: true
   roles: [web, nfs_cliente, sftp]
 
+- hosts: servidores_backup
+  become: true
+  roles: [backup_servidor]
