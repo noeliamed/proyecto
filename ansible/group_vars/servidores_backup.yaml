@@ -1,0 +1,3 @@
+backup_raiz: /srv/backups
+backup_log: /var/log/backup.log
+backup_retencion_dias: 7

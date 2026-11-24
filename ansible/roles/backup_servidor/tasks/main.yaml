@@ -1,0 +1,36 @@
+- name: Instalar las herramientas de copia
+  ansible.builtin.apt:
+    name: [cron, rsync, mariadb-client, nfs-common]
+    state: present
+
+- name: Directorio raíz de las copias (solo root)
+  ansible.builtin.file:
+    path: "{{ backup_raiz }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0700"
+
+- name: Carpetas de cada tipo de copia
+  ansible.builtin.file:
+    path: "{{ backup_raiz }}/{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0700"
+  loop: [bd, nas]
+
+- name: Fichero de registro de las copias
+  ansible.builtin.copy:
+    dest: "{{ backup_log }}"
+    content: ""
+    force: false
+    owner: root
+    group: root
+    mode: "0640"
+
+- name: Servicio cron activo y habilitado
+  ansible.builtin.service:
+    name: cron
+    state: started
+    enabled: true
