@@ -44,3 +44,15 @@ variable "memory_nas" {
   type    = number
   default = 1024
 }
+
+variable "base_image_backup" {
+  type    = string
+  default = "debian13-base.qcow2"
+}
+
+variable "memory_backup" {
+  type    = number
+  default = 1024
+}
+
+

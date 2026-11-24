@@ -4,6 +4,7 @@ locals {
     web = { imagen = var.base_image_web, memoria = var.memory_web, ip_datos = "10.10.10.11", grupo = "servidores_web" }
     bd  = { imagen = var.base_image_bd,  memoria = var.memory_bd,  ip_datos = "10.10.10.12", grupo = "servidores_bd" }
     nas = { imagen = var.base_image_nas, memoria = var.memory_nas, ip_datos = "10.10.10.13", grupo = "servidores_nas" }
+    backup = { imagen = var.base_image_backup, memoria = var.memory_backup, ip_datos = "10.10.10.14", grupo = "servidores_backup" }
   }
 }
 
