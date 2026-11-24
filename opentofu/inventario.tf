@@ -1,5 +1,5 @@
 locals {
-  grupos = ["servidores_web", "servidores_bd", "servidores_nas", "servicores_backup"]
+  grupos = ["servidores_web", "servidores_bd", "servidores_nas", "servidores_backup"]
 }
 
 resource "local_file" "inventario" {
