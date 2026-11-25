@@ -1,3 +1,5 @@
 backup_raiz: /srv/backups
 backup_log: /var/log/backup.log
 backup_retencion_dias: 7
+
+backup_nas_montaje: /mnt/nas_ficheros

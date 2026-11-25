@@ -10,4 +10,3 @@ sftp_usuarios:
 
 nfs_servidor: "10.10.10.13"
 nfs_punto_montaje: "/srv/sftp/cliente1/subidas"
-nfs_exportacion: "/srv/nfs/ficheros"

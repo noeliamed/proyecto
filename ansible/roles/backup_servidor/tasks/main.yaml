@@ -34,3 +34,16 @@
     name: cron
     state: started
     enabled: true
+
+- name: Directorio de montaje de los ficheros del NAS
+  ansible.builtin.file:
+    path: "{{ backup_nas_montaje }}"
+    state: directory
+
+- name: Montar los ficheros del nas en solo lectura
+  ansible.posix.mount:
+    src: "{{ ip_datos_nas }}:{{ nfs_exportacion }}"
+    path: "{{ backup_nas_montaje }}"
+    fstype: nfs
+    opts: ro,_netdev,nofail
+    state: mounted

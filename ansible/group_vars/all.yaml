@@ -1,5 +1,8 @@
 ip_datos_web: "{{ hostvars['web'].ip_datos }}"
 ip_datos_bd: "{{ hostvars['bd'].ip_datos }}"
+ip_datos_nas: "{{ hostvars['nas'].ip_datos }}"
+
+nfs_exportacion: /srv/nfs/ficheros
 
 db_name: guestbook
 db_user: guestbook
