@@ -10,3 +10,7 @@ paquetes_comunes: [vim, curl, htop, git]
 
 sftp_uid: 2001
 sftp_gid: 2001
+
+ip_datos_backup: "{{ hostvars['backup'].ip_datos }}"
+backup_db_user: respaldo
+backup_db_password: respaldo

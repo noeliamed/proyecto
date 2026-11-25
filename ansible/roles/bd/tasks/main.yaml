@@ -35,6 +35,16 @@
     login_unix_socket: /run/mysqld/mysqld.sock
   no_log: true
 
+- name: Usuario de solo lectura para las copias (solo desde backup)
+  community.mysql.mysql_user:
+    name: "{{ backup_db_user }}"
+    password: "{{ backup_db_password }}"
+    host: "{{ ip_datos_backup }}"
+    priv: "{{ db_name }}.*:SELECT,SHOW VIEW,TRIGGER,LOCK TABLES"
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+  no_log: true
+
 - name: Copiar schema.sql
   ansible.builtin.copy:
     src: schema.sql
